@@ -1,0 +1,59 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  width: auto;
+  background-color: #B43910;
+  table-layout: fixed;
+  width: 200px;
+  top: 10px;
+}
+
+.container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Ajusta la altura al 100% del viewport */
+  background-image: url('/assets/cave2.jpg'); //Fondo de cueva
+  background-size: 100% 150%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0px;
+  padding: 0;
+  max-width: none;
+  max-height: none;
+ 
+}
+
+.table-container {
+  width: 680px;
+  height: 680px;
+  
+}
+
+.imgCellPlayer{
+  background-color: #B43910 ;
+  padding: 1px;
+  height: 30px;
+  width: 30px;
+}
+
+.imgCell {
+  background-color: #B43910;
+  padding: 1px;
+  width: 30px;
+  
+}
+
+table td {
+  border: 1px solid #4B1900;
+  text-align: left;
+  padding: 8px;
+  z-index: 1;
+  position: relative;
+}

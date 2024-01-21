@@ -1,0 +1,54 @@
+
+
+.containerImage{
+   background-image: url('/assets/cave2.jpg'); //Fondo de cueva
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+   margin: 0px;
+   padding: 0;
+   max-width: none;
+   max-height: none;
+   height: 100vh; //Altura de la ventana
+   display: flex;//Centramos formulario
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+h1{
+    color: #F2A413;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+ }
+
+ h3{
+   color: #F2A413;
+   
+ }
+ 
+ 
+ 
+ input {
+    padding: 3px; 
+    border-radius: 5px;
+ }
+ 
+ 
+ 
+ .playbutton{
+    width: 100px;
+    background-color: #F2A413;
+    border-radius: 5px;
+    color: aliceblue;
+ }
+ 
+ 
+ .card-body{
+    background-color:antiquewhite;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    
+    }
+
+   

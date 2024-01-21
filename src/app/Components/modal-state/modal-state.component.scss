@@ -1,0 +1,32 @@
+
+h2.mat-dialog-title {
+    color: #B43910; 
+    font-family: 'Impact', 'Arial Black', sans-serif; 
+    text-align: center;
+    margin-bottom: 10px; 
+  }
+  
+  mat-dialog-content.mat-typography {
+    padding: 20px; 
+  }
+  
+  mat-dialog-actions {
+    justify-content: flex-end; 
+    padding: 15px; 
+  }
+  
+
+  button {
+    margin-left: 10px; 
+    background-color: #B43910;
+    color: #fff; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  button:hover {
+    background-color: #512DA8; 
+  }
