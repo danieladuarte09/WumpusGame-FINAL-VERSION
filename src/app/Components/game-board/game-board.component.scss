@@ -48,12 +48,47 @@ table {
   padding: 1px;
   width: 30px;
   
+  
 }
 
 table td {
   border: 1px solid #4B1900;
   text-align: left;
-  padding: 8px;
+  padding: 2px;
   z-index: 1;
   position: relative;
+}
+
+.btn-custom-primary {
+  margin-top: 10px;
+  color: #fff;
+  background-color: #4B1900; /* Color primario personalizado */
+  border-color: #B43910; /* Color del borde personalizado */
+}
+
+.btn-custom-primary:hover {
+  background-color: #5E35B1; /* Cambio de color al pasar el ratón sobre el botón */
+  border-color: #5E35B1;
+}
+
+.smallContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+}
+
+.btn-custom-primary {
+  
+  margin-right: 10px; 
+}
+
+.arrowInformation {
+  background-color: #fff;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+p{
+  margin-bottom: 0px;
 }

@@ -32,6 +32,10 @@ export class GameBoardComponent {
   pitMapping!:void;
   showMessageGold = false;
   playerDirection: string = 'down'; //dirección por defecto del jugador
+  haveGold: boolean = false;
+  arrowCount: number = 3
+  arrowInformation: string = '';
+  
 
   ngOnInit(): void {
     //const example = this.matrizGame(10);
@@ -86,7 +90,6 @@ export class GameBoardComponent {
   //gold: boolean = false
 
 
-  
 
   resetGame(): void {
     
@@ -100,8 +103,17 @@ export class GameBoardComponent {
         this.wumpusMapping = this.EvaluatePositionWumpus(this.matriz);
         this.pitMapping = this.EvaluatePositionPit(this.matriz);
         this.showMessageGold = false;
-    
+        this.ngAfterViewInit()
+        this.haveGold = false;
+        this.arrowInformation = '';
+        this.arrowCount = 3;
+        this.playerDirection = 'down'; //dirección por defecto del jugador
 
+  }
+
+  //focus en la tabla para que mueva el player con el keyboard
+  ngAfterViewInit(): void {
+    this.el.nativeElement.querySelector('.table').focus();
   }
 
   placePlayer(gridSize: number): Cell[][] {
@@ -239,39 +251,41 @@ export class GameBoardComponent {
           this.GameStatus(matriz);
         }
         break;
-      default:
-        // Dirección no válida
-        break;
+
+      
+
+      
     }
 
     return matriz;
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    switch (event.code) {
-      case 'ArrowUp':
+    switch (event.key) {
+      case 'w':
         this.changePlayerDirection('up')
         this.matriz = this.movePlayer(this.matriz, 'up');
         break;
-      case 'ArrowDown':
+      case 's':
         this.changePlayerDirection('down')
         this.matriz = this.movePlayer(this.matriz, 'down');
         break;
-      case 'ArrowLeft': 
+      case 'a': 
         this.changePlayerDirection('left')
         this.matriz = this.movePlayer(this.matriz, 'left');
         break;
-      case 'ArrowRight':
+      case 'd':
         this.changePlayerDirection('right')
         this.matriz= this.movePlayer(this.matriz, 'right');
         break;
+      case 'Enter':
+        //Disparas en la dirección que se encuentra el jugador
+        this.throwArrows(this.playerDirection)  
+        break;  
     }
   }
 
-  //focus en la tabla para que mueva el player con el keyboard
-  ngAfterViewInit(): void {
-    this.el.nativeElement.querySelector('.table').focus();
-  }
+  
 
   EvaluatePositionGold(matriz: Cell[][]): void {
     for (let row = 0; row < matriz.length; row++) {
@@ -280,18 +294,22 @@ export class GameBoardComponent {
           // Verificar celda arriba
           if (row > 0) {
             matriz[row - 1][column].brightness = true;
+            
           }
           //celda  abajo
           if (row < matriz.length - 1) {
             matriz[row + 1][column].brightness = true;
+            
           }
           //izquierda
           if (column > 0) {
             matriz[row][column - 1].brightness = true;
+            
           }
           //derecha
           if (column < matriz.length - 1) {
             matriz[row][column + 1].brightness = true;
+            
           }
         }
       }
@@ -379,79 +397,83 @@ export class GameBoardComponent {
 
       if (matriz[row][column].gold) {
         this.showMessageGold = true;
+        this.haveGold = true;
       }
 
-      if (matriz[row][column].gold && matriz[0][0].player) {
+      if (this.haveGold && matriz[0][0].player) {
         this.showModal('You have won!');
       }
     }
   }
-  /*
-  throwArrows(event: KeyboardEvent) {
-    const matriz = this.matrixGenerated
-    const direction = event.key;
+
+  
+  
+  throwArrows(direction: string): void {
+    const matriz = this.matriz;
     
-    if (this.arrowCountChild > 0 ) {
-      
-      switch (direction) {
-        case 'ArrowUp':
-          if (this.user.row > 0 && matriz[this.user.row - 1][this.user.column] === 1 ) {
-            matriz[this.user.row - 1][this.user.column] = 0;
-            this.arrowInformationChild = 'You killed Wumpus ';
-          } else { 
-            this.arrowInformationChild = 'You have shot an arrow and missed the Wumpus!';
-            
-            
-          }
-          break;
-        case 'ArrowDown':
-          if (this.user.row < matriz.length - 1 && matriz[this.user.row + 1][this.user.column] === 1) {
-            matriz[this.user.row + 1][this.user.column] = 0;
-            this.arrowInformationChild = 'You killed Wumpus ';
-          } else { 
-            this.arrowInformationChild = 'You have shot an arrow and missed the Wumpus!';
-            
-            
-          }
-          break;
-        case 'ArrowLeft':
-          if (this.user.column > 0 && matriz[this.user.row][this.user.column - 1] === 1) {
-            matriz[this.user.row][this.user.column - 1] = 0;
-            this.arrowInformationChild = 'You killed Wumpus ';
-          } else { 
-            this.arrowInformationChild = 'You have shot an arrow and missed the Wumpus!';
-            
-            
-          }
-          
-          break;
-        case 'ArrowRight':
-          if (this.user.column < this.matrixGenerated[0].length - 1 && matriz[this.user.row][this.user.column + 1] ===1 ) {
-            matriz[this.user.row][this.user.column + 1] = 0;
-            this.arrowInformationChild = 'You killed Wumpus ';
-            
-          } else { 
-            this.arrowInformationChild = 'You have shot an arrow and missed the Wumpus!';
-           
-            
-          }
-          break;
-        default:
-          this.arrowInformationChild = 'Invalid direction';
-      } 
-       
-    //Restamos una flecha
-    this.gamePerceptionsService.setArrowState(this.arrowCountChild = this.arrowCountChild -1 ) 
-    this.showArrowMessage = false
+    // Verifica si tienes flechas disponibles
+    if (this.arrowCount > 0) {
+      // Lógica para lanzar la flecha en la dirección especificada
+      this.shootArrow(matriz, direction);
     } else {
-      this.arrowInformationChild = 'You have run out of available arrows ';
+      this.arrowInformation = 'You have run out of available arrows ';
     }
-    //Actualizamos información al usuario
-    this.gamePerceptionsService.setArrowInformationState(this.arrowInformationChild) 
-    this.arrowButton = false;
+  }
+  
+
+  shootArrow(matriz: Cell[][], direction: string): void {
+    // Encuentra la posición actual del jugador
+    let playerPosition = this.getPlayerPosition(matriz);
     
-   
-  }*/
+    if (playerPosition) {
+        const { row, column } = playerPosition;
+
+        switch (direction) {
+            case 'up':
+                if (row > 0 && matriz[row - 1][column].wumpus) {
+                    matriz[row - 1][column].wumpus = false;
+                    this.arrowInformation = 'You killed Wumpus';
+                    
+                } else {
+                  this.arrowInformation = 'You have shot an arrow and missed the Wumpus!'
+                }
+                break;
+            case 'down':
+                if (row < matriz.length - 1 && matriz[row + 1][column].wumpus) {
+                    matriz[row + 1][column].wumpus = false;
+                    this.arrowInformation = 'You killed Wumpus';
+                } else {
+                  this.arrowInformation = 'You have shot an arrow and missed the Wumpus!';
+                }
+                break;
+            case 'left':
+                if (column > 0 && matriz[row][column - 1].wumpus) {
+                    matriz[row][column - 1].wumpus = false;
+                    this.arrowInformation = 'You killed Wumpus';
+                } else {
+                  this.arrowInformation = 'You have shot an arrow and missed the Wumpus!';
+                }
+                break;
+            case 'right':
+                if (column < matriz[0].length - 1 && matriz[row][column + 1].wumpus) {
+                    matriz[row][column + 1].wumpus = false;
+                    this.arrowInformation = 'You killed Wumpus';
+                } else {
+                  this.arrowInformation = 'You have shot an arrow and missed the Wumpus!';
+                }
+                break;
+            default:
+              this.arrowInformation = 'Invalid direction';
+                break;
+        }
+        //Restamos una flecha
+        this.arrowCount = this.arrowCount -1
+    } else {
+      this.arrowInformation = 'La posición del jugador es nula';
+    }
+    
+}
+
   changePlayerDirection(direction: string): void {
     this.playerDirection = direction;
   }
@@ -459,7 +481,6 @@ export class GameBoardComponent {
   getPlayerImage(): string {
     return `/assets/player.${this.playerDirection}.png`;
   }
-
 
 
 }

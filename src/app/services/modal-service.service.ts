@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { ModalStateComponent } from '../Components/modal-state/modal-state.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GameInformationComponent } from '../Components/game-information/game-information.component';
+import { AboutModalComponent } from '../Components/about-modal/about-modal.component';
+import { HowtoPlayModalComponent } from '../Components/howto-play-modal/howto-play-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +29,22 @@ import { GameInformationComponent } from '../Components/game-information/game-in
 
   openModal(): void {
     this.dialog.open(GameInformationComponent, {
-      width: '400px', // Ajusta el ancho según tus necesidades
+      width: '500px', // Ajusta el ancho según tus necesidades
     });
   }
+
+  openAboutModal(): void {
+    this.dialog.open(AboutModalComponent, {
+      width: '500px', // Ajusta el ancho según tus necesidades
+    });
+  }
+
+  openHowtoPlayModal(): void {
+    this.dialog.open(HowtoPlayModalComponent, {
+      width: '500px', 
+    });
+  }
+
+
 
   }

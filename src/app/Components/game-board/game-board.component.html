@@ -7,6 +7,8 @@
       <div *ngIf="showMessageGold" class="alert alert-warning" role="alert">
         You found the gold, now go back to the exit!
       </div>
+      
+
       <table class="table" (keydown)="onKeyDown($event)" tabindex="0" style="width: 100%; height: 100%;">
         <tr *ngFor="let row of matriz; let rowIndex = index">
           <td *ngFor="let cell of row; let colIndex = index" [ngStyle]="{'width.px': 60, 'height.px': 60}">
@@ -17,15 +19,31 @@
             <div class="imgCell" *ngIf="cell.gold">  </div>
             <div class="imgCell" *ngIf="cell.wumpus"> </div>
             <div class="imgCell" *ngIf="cell.pit"> </div>
-            <div class="imgCell" *ngIf="cell.brightness">
-              <img src="/assets/brightness.png" [ngStyle]="{'width.px': 20, 'height.px': 20 }"  > </div>
-            <div class="imgCell" *ngIf="cell.breeze">
-              <img src="/assets/breeze.png" [ngStyle]="{'width.px': 20, 'height.px': 20 }"  ></div>
-            <div class="imgCell" *ngIf="cell.stench">
-              <img src="/assets/stench.png" [ngStyle]="{'width.px': 20, 'height.px': 20 }"  ></div>
+
+            <div class="imgCell" *ngIf="cell.brightness && cell.player">
+              <img src="/assets/brightness.png" [ngStyle]="{'width.px': 30, 'height.px': 30 }" >
+              
+            </div>
+
+            <div class="imgCell" *ngIf="cell.breeze && cell.player">
+              <img src="/assets/breeze2.png" [ngStyle]="{'width.px': 30, 'height.px': 30 }"  >
+            </div>
+
+            <div class="imgCell" *ngIf="cell.stench && cell.player && !cell.wumpusEliminated">
+              <img src="/assets/stench2.png" [ngStyle]="{'width.px': 30, 'height.px': 30 }"  >
+            </div>
+
           </td>
         </tr>
       </table>
+      
+      <div class="smallContainer">
+        <button type="button" (click)="resetGame()" class="btn btn-custom-primary">Reset Game</button>
+      <div class="arrowInformation">
+        <p><b>Arrows: {{arrowCount}} {{arrowInformation}}</b></p> 
+      </div>
+      </div>
+      
     </div>
  
     

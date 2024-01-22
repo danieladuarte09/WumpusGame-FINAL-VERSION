@@ -39,3 +39,56 @@ body {
     width: 30px;
     height: auto;
   }
+
+  .mobile-menu-button {
+    display: none; /* Oculta el botón de hamburguesa por defecto en pantallas más grandes */
+    cursor: pointer;
+  }
+  
+  .bar {
+    width: 30px;
+    height: 2px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .mobile-menu-button {
+      display: block;
+      position: absolute;
+      top: 10px; 
+      right: 10px; 
+      cursor: pointer;
+      z-index: 2; 
+      background-color: #ddd;
+    }
+  
+    .left-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      background-color: #f9f9f9;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      width: 100%;
+    }
+  
+    .left-links a {
+      padding: 5px;
+      text-align: center;
+      color: black; 
+      
+    }
+
+    .left-links a:hover {
+      background-color: black;
+    color: #ddd;
+    }
+  
+    .left-links.show {
+      display: flex;
+    }
+  }

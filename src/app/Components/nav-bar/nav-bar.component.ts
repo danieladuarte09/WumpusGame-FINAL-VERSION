@@ -17,4 +17,20 @@ export class NavBarComponent {
     this.ModalService.openModal();
   }
 
+  openAboutModal(): void {
+    this.ModalService.openAboutModal();
+  }
+
+  openHowtoPlayModal(): void {
+    this.ModalService.openHowtoPlayModal();
+  }
+
+   toggleMobileMenu() {
+    const leftLinks = document.querySelector('.left-links') as HTMLElement;
+  
+    if (leftLinks) {
+      leftLinks.classList.toggle('show');
+    }
+  }
+
 }

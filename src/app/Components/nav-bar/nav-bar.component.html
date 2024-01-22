@@ -1,11 +1,19 @@
-<nav>
-    <div class="left-links">
-      <a  [routerLink]="['/formpage']" class="main-title">Wumpus World</a>
-      <a href="#">About</a>
-      <a (click)="openPerceptionModal()" >Perceptions</a>
-      <a href="#">Repo</a>
-    </div>
+<!-- Botón de hamburguesa para dispositivos móviles -->
+<div class="mobile-menu-button" (click)="toggleMobileMenu()">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+
+<nav class="main-nav">
+  <a [routerLink]="['/formpage']" class="main-title">Wumpus World</a>
+  <div class="left-links">
+    <a (click)="openAboutModal()">ABOUT</a>
+    <a (click)="openPerceptionModal()">PERCEPTIONS</a>
+    <a (click)="openHowtoPlayModal()">HOW TO PLAY</a>
+    <a href="https://github.com/danieladuarte09/WumpusGame" target="_blank">REPOSITORY</a>
     <a href="https://github.com/danieladuarte09" target="_blank">
       <img src="/assets/GitHubpng.png" alt="GitHub" class="github-icon">
     </a>
-  </nav>
+  </div>
+</nav>
