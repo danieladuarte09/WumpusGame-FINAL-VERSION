@@ -1,94 +1,114 @@
 body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
 }
 
 table {
   margin: auto;
   border-collapse: collapse;
-  width: auto;
+  width: 100%;
   background-color: #B43910;
   table-layout: fixed;
-  width: 200px;
-  top: 10px;
 }
 
 .container {
-  margin-top: 10px;
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  height: 100vh; /* Ajusta la altura al 100% del viewport */
-  background-image: url('/assets/cave2.jpg'); //Fondo de cueva
-  background-size: 100% 150%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/assets/cave2.jpg');
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  margin: 0px;
-  padding: 0;
+  padding: 20px;
+  box-sizing: border-box;
   max-width: none;
-  max-height: none;
+  height: 120vh; //Altura de la ventana
  
+
+}
+
+.small-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .table-container {
-  width: 680px;
-  height: 680px;
-  
+  width: 100%;
+  max-width: 680px;
+  height: 100%;
+  max-height: 680px;
 }
 
-.imgCellPlayer{
-  background-color: #B43910 ;
-  padding: 1px;
-  height: 30px;
-  width: 30px;
-}
-
-.imgCell {
+.img-cell-player,
+.img-cell {
   background-color: #B43910;
   padding: 1px;
-  width: 30px;
-  
-  
+  width: 100%;
+  //height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-cell-player img{
+  width: 35px;
+  height: 35px;
+  max-width: 100%;
+  max-height: 100%;
+
+}
+
+
+.img-cell img {
+  width: 20px;
+  height: 20px;
+  max-width: 50%;
+  max-height: 50%;
 }
 
 table td {
   border: 1px solid #4B1900;
-  text-align: left;
-  padding: 2px;
-  z-index: 1;
-  position: relative;
+  padding: 0;
+  width: 60px;
+  height: 60px;
 }
 
 .btn-custom-primary {
   margin-top: 10px;
   color: #fff;
-  background-color: #4B1900; /* Color primario personalizado */
-  border-color: #B43910; /* Color del borde personalizado */
+  background-color: #4B1900;
+  border-color: #B43910;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-custom-primary:hover {
-  background-color: #5E35B1; /* Cambio de color al pasar el ratón sobre el botón */
+  background-color: #5E35B1;
   border-color: #5E35B1;
 }
 
-.smallContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center; 
-}
-
-.btn-custom-primary {
-  
-  margin-right: 10px; 
-}
-
-.arrowInformation {
+.arrow-information {
   background-color: #fff;
   border-radius: 5px;
   margin-top: 10px;
   padding: 10px;
+  text-align: center;
 }
 
-p{
-  margin-bottom: 0px;
+.alert {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  margin: 0;
 }
