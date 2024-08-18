@@ -205,6 +205,7 @@ export class GameBoardComponent {
     return matriz;
   }
 
+  /*
   movePlayer(matriz: Cell[][], direction: string): Cell[][] {
     const gridSize = matriz.length;
     let playerRow = -1;
@@ -258,89 +259,214 @@ export class GameBoardComponent {
     }
 
     return matriz;
-  }
+  } 
 
+ */
+
+  movePlayer(matriz: Cell[][], direction: string): Cell[][] {
+    const gridSize = matriz.length;
+    let playerRow = -1;
+    let playerCol = -1;
+
+    // Encuentra la posición actual del jugador
+    for (let i = 0; i < gridSize; i++) {
+      for (let j = 0; j < gridSize; j++) {
+        if (matriz[i][j].player) {
+          playerRow = i;
+          playerCol = j;
+          break;
+        }
+      }
+    }
+
+    // Actualiza la posición del jugador en función de la dirección
+    switch (direction) {
+      case 'up':
+        if (playerRow > 0) {
+          matriz[playerRow][playerCol].player = false;
+          matriz[playerRow - 1][playerCol].player = true;
+          matriz[playerRow - 1][playerCol].visited = true; // Marca como visitada y que quede la imagen
+          this.EvaluatePositionPit(matriz); // Evalúa la posición después del movimiento
+          this.EvaluatePositionWumpus(matriz);
+          this.EvaluatePositionGold(matriz);
+          this.GameStatus(matriz);
+        }
+        break;
+      case 'down':
+        if (playerRow < gridSize - 1) {
+          matriz[playerRow][playerCol].player = false;
+          matriz[playerRow + 1][playerCol].player = true;
+          matriz[playerRow + 1][playerCol].visited = true; // Marca como visitada y que quede la imagen
+          this.EvaluatePositionPit(matriz); // Evalúa la posición después del movimiento
+          this.EvaluatePositionWumpus(matriz);
+          this.EvaluatePositionGold(matriz);
+          this.GameStatus(matriz);
+        }
+        break;
+      case 'left':
+        if (playerCol > 0) {
+          matriz[playerRow][playerCol].player = false;
+          matriz[playerRow][playerCol - 1].player = true;
+          matriz[playerRow][playerCol - 1].visited = true; // Marca como visitada y que quede la imagen
+          this.EvaluatePositionPit(matriz); // Evalúa la posición después del movimiento
+          this.EvaluatePositionWumpus(matriz);
+          this.EvaluatePositionGold(matriz);
+          this.GameStatus(matriz);
+        }
+        break;
+      case 'right':
+        if (playerCol < gridSize - 1) {
+          matriz[playerRow][playerCol].player = false;
+          matriz[playerRow][playerCol + 1].player = true;
+          matriz[playerRow][playerCol + 1].visited = true; // Marca como visitada y que quede la imagen
+          this.EvaluatePositionPit(matriz); // Evalúa la posición después del movimiento
+          this.EvaluatePositionWumpus(matriz);
+          this.EvaluatePositionGold(matriz);
+          this.GameStatus(matriz);
+        }
+        break;
+    }
+
+    return matriz;
+}
+
+  
   onKeyDown(event: KeyboardEvent): void {
+    let newDirection: string | null = null;
+
     switch (event.key) {
       case 'w':
-        this.changePlayerDirection('up')
-        this.matriz = this.movePlayer(this.matriz, 'up');
+      case 'ArrowUp':
+        newDirection = 'up';
+        //this.changePlayerDirection('up')
+        //this.matriz = this.movePlayer(this.matriz, 'up');
         break;
       case 's':
-        this.changePlayerDirection('down')
-        this.matriz = this.movePlayer(this.matriz, 'down');
+      case 'ArrowDown': 
+      newDirection = 'down';
+        //this.changePlayerDirection('down')
+        //this.matriz = this.movePlayer(this.matriz, 'down');
         break;
-      case 'a': 
-        this.changePlayerDirection('left')
-        this.matriz = this.movePlayer(this.matriz, 'left');
+      case 'a':
+      case 'ArrowLeft':   
+      newDirection = 'left';
+        //this.changePlayerDirection('left')
+        //this.matriz = this.movePlayer(this.matriz, 'left');
         break;
       case 'd':
-        this.changePlayerDirection('right')
-        this.matriz= this.movePlayer(this.matriz, 'right');
+      case 'ArrowRight': 
+      newDirection = 'right';
+        //this.changePlayerDirection('right')
+        //this.matriz= this.movePlayer(this.matriz, 'right');
         break;
       case 'Enter':
+      case 'Space':
         //Disparas en la dirección que se encuentra el jugador
         this.throwArrows(this.playerDirection)  
         break;  
     }
+
+    if (newDirection) {
+      if (newDirection === this.playerDirection) {
+        // Mueve al jugador si la nueva dirección es la misma que la dirección actual
+        this.matriz = this.movePlayer(this.matriz, newDirection);
+      } else {
+        // Cambia la dirección del jugador
+        this.changePlayerDirection(newDirection);
+      }
+    }
+
+  }  
+    
+
+  /**
+   * 
+   
+  
+  onKeyDown(event: KeyboardEvent): void {
+    switch (event.key) {
+      // Cambia la dirección del jugador sin moverlo
+      case 'w':
+      case 'ArrowUp':
+        this.changePlayerDirection('up');
+        break;
+      case 's':
+      case 'ArrowDown':
+        this.changePlayerDirection('down');
+        break;
+      case 'a':
+      case 'ArrowLeft':
+        this.changePlayerDirection('left');
+        break;
+      case 'd':
+      case 'ArrowRight':
+        this.changePlayerDirection('right');
+        break;
+      case 'Enter':
+        // Mueve al jugador en la dirección actual
+        this.matriz = this.movePlayer(this.matriz, this.playerDirection);
+        break;
+    }
   }
 
+   */
   
 
+  
   EvaluatePositionGold(matriz: Cell[][]): void {
     for (let row = 0; row < matriz.length; row++) {
       for (let column = 0; column < matriz[0].length; column++) {
         if (matriz[row][column].gold) {
           // Verificar celda arriba
-          if (row > 0) {
+          if (row > 0 && matriz[row - 1][column].visited) {
             matriz[row - 1][column].brightness = true;
-            
           }
-          //celda  abajo
-          if (row < matriz.length - 1) {
+          // Celda abajo
+          if (row < matriz.length - 1 && matriz[row + 1][column].visited) {
             matriz[row + 1][column].brightness = true;
-            
           }
-          //izquierda
-          if (column > 0) {
+          // Izquierda
+          if (column > 0 && matriz[row][column - 1].visited) {
             matriz[row][column - 1].brightness = true;
-            
           }
-          //derecha
-          if (column < matriz.length - 1) {
+          // Derecha
+          if (column < matriz[0].length - 1 && matriz[row][column + 1].visited) {
             matriz[row][column + 1].brightness = true;
-            
           }
         }
       }
     }
   }
+  
 
   EvaluatePositionWumpus(matriz: Cell[][]): void {
     for (let row = 0; row < matriz.length; row++) {
       for (let column = 0; column < matriz[0].length; column++) {
         if (matriz[row][column].wumpus) {
           // Verificar celda arriba
-          if (row > 0) {
+          if (row > 0 && matriz[row - 1][column].visited) {
             matriz[row - 1][column].stench = true;
           }
-          //celda  abajo
-          if (row < matriz.length - 1) {
+          // Celda abajo
+          if (row < matriz.length - 1 && matriz[row + 1][column].visited) {
             matriz[row + 1][column].stench = true;
           }
-          //izquierda
-          if (column > 0) {
+          // Izquierda
+          if (column > 0 && matriz[row][column - 1].visited) {
             matriz[row][column - 1].stench = true;
           }
-          //derecha
-          if (column < matriz.length - 1) {
+          // Derecha
+          if (column < matriz[0].length - 1 && matriz[row][column + 1].visited) {
             matriz[row][column + 1].stench = true;
           }
         }
       }
     }
   }
+  
+  
 
+    /*
   EvaluatePositionPit(matriz: Cell[][]): void {
     for (let row = 0; row < matriz.length; row++) {
       for (let column = 0; column < matriz[0].length; column++) {
@@ -364,7 +490,35 @@ export class GameBoardComponent {
         }
       }
     }
-  }
+  }*/
+
+  
+
+    EvaluatePositionPit(matriz: Cell[][]): void {
+      for (let row = 0; row < matriz.length; row++) {
+        for (let column = 0; column < matriz[0].length; column++) {
+          if (matriz[row][column].pit) {
+            // Verificar celda arriba
+            if (row > 0 && matriz[row - 1][column].visited) {
+              matriz[row - 1][column].breeze = true;
+            }
+            // Celda abajo
+            if (row < matriz.length - 1 && matriz[row + 1][column].visited) {
+              matriz[row + 1][column].breeze = true;
+            }
+            // Izquierda
+            if (column > 0 && matriz[row][column - 1].visited) {
+              matriz[row][column - 1].breeze = true;
+            }
+            // Derecha
+            if (column < matriz[0].length - 1 && matriz[row][column + 1].visited) {
+              matriz[row][column + 1].breeze = true;
+            }
+          }
+        }
+      }
+    }
+    
 
   showModal(message: string): void {
     this.ModalService.openDialog(message);
@@ -382,6 +536,7 @@ export class GameBoardComponent {
     return null;
   }
 
+  //Modal Status 
   GameStatus(matriz: Cell[][]): void {
     const playerPosition = this.getPlayerPosition(matriz);
 

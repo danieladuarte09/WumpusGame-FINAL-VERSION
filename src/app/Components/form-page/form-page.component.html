@@ -12,74 +12,46 @@
         <p><strong>Customize your game:</strong></p>
   
         <form [formGroup]="formGroup">
-  
           <div class="mb-2">
-            <label for="boardSize"> Grid Size: </label>
-            <input
+            <label for="boardSize">Grid Size:</label>
+            <select
               formControlName="boardSize"
-              type="number"
               id="boardSize"
               name="boardSize"
-              placeholder="4,5,6...10"
               class="form-control"
-            />
+            >
+              <option value="" disabled selected>Select size</option>
+              <option *ngFor="let num of [4, 5, 6, 7, 8, 9, 10]" [value]="num">
+                {{ num }}
+              </option>
+            </select>
           </div>
-  
-          <div
-            class="alert alert-danger"
-            *ngIf="
-              formGroup.get('boardSize')?.errors &&
-              formGroup.get('boardSize')?.dirty
-            "
-          >
-            <p *ngIf="formGroup.get('boardSize')?.hasError('required')">
-              Field is required
-            </p>
-            <p *ngIf="formGroup.get('boardSize')?.hasError('pattern')">
-              Only positive numbers are allowed.
-            </p>
-            <p *ngIf="formGroup.get('boardSize')?.hasError('max')">
-              Grid Size minimum  4 - maximun 10
-            </p>
-            <p *ngIf="formGroup.get('boardSize')?.hasError('min')">
-              Grid Size minimum  4 - maximun 10
-            </p>
-          </div>
-  
+        
           <div class="mb-2">
             <label for="numberOfPits">Number of pits:</label>
-            <input
+            <select
               formControlName="numberOfPits"
-              type="number"
               id="numberOfPits"
               name="numberOfPits"
-              placeholder="2,3,4..."
               class="form-control"
-            />
+            >
+              <option value="" disabled selected>Select pits</option>
+              <option *ngFor="let num of [3, 4, 5, 6, 7, 8]" [value]="num">
+                {{ num }}
+              </option>
+            </select>
           </div>
-          <div
+        
+         
+
+               <!-- Mensaje de error para la validación personalizada -->
+            <div
             class="alert alert-danger"
-            *ngIf="
-              formGroup.get('numberOfPits')?.errors &&
-              formGroup.get('numberOfPits')?.dirty
-            "
+            *ngIf="formGroup.errors && formGroup.hasError('pitsError') && formGroup.dirty"
           >
-            <p *ngIf="formGroup.get('numberOfPits')?.hasError('required')">
-              Field is required
-            </p>
-            <p *ngIf="formGroup.get('numberOfPits')?.hasError('pattern')">
-              Only positive numbers are allowed. Holes may not exceed 80% of the grid size.
-            </p>
-            <p *ngIf="formGroup.get('numberOfPits')?.hasError('min')">
-              Minimum pits 3.
-            </p>
-            <!--Holes may not exceed 80% of the grid size-->
-            <p *ngIf="formGroup.dirty && formGroup.hasError('pitsError')">
-              {{ formGroup.getError('pitsError') }}
-            </p>
-            
-            
-  
+            <p>{{ formGroup.getError('pitsError') }}</p>
+
+
           </div>
         </form>
   

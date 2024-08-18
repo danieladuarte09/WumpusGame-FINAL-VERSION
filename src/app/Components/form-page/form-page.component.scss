@@ -41,15 +41,154 @@ h1{
     background-color: #F2A413;
     border-radius: 5px;
     color: aliceblue;
+    padding: 5px;
  }
  
+
+
+    /* Estilo para la tarjeta */
+.card {
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   padding: 16px;
+   background-color: #f9f9f9;
+   max-width: 600px;
+   margin: 0 auto;
+   width: 300px;
+   height: 350px;
+   align-items: center;
+ }
  
- .card-body{
-    background-color:antiquewhite;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    
-    }
+ /* Estilo para el cuerpo de la tarjeta */
+ .card-body {
+   padding: 0;
+   align-items: center;
+   
+
+ }
+ 
+ /* Estilo para el texto de introducción */
+ .card-body p {
+   font-weight: bold;
+   font-size: 1.2rem;
+   color: #333;
+   margin-bottom: 1rem;
+ }
+ 
+ /* Estilo para las etiquetas de los campos del formulario */
+ label {
+   display: block;
+   font-weight: bold;
+   margin-bottom: 0.5rem;
+   color: #555;
+   font-size: 1rem;
+   width: 260px; //Ancho de los campos del formulario
+ }
+ 
+ /* Estilo para los selectores del formulario */
+ .form-control {
+   width: 100%;
+   padding: 0.75rem;
+   font-size: 1rem;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   background-color: #fff;
+   color: #333;
+   transition: border-color 0.2s ease-in-out;
+ }
+  //focus on the table
+ .form-control:focus {
+   border-color: #007bff;
+   box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+   outline: none;
+ }
+ 
+ /* Margen inferior para los elementos del formulario */
+ .mb-2 {
+   margin-bottom: 1rem;
+ }
+ 
+ /* Estilo para las alertas de error */
+ .alert {
+   margin-top: 0.5rem;
+   padding: 0.75rem;
+   border: 1px solid transparent;
+   border-radius: 4px;
+ }
+ 
+ .alert-danger {
+   color: #721c24;
+   background-color: #f8d7da;
+   border-color: #f5c6cb;
+ }
+ 
+ .alert-danger p {
+   margin: 0;
+   font-size: 0.875rem;
+   line-height: 1.5;
+ }
+ 
+ /* Adaptabilidad a pantallas pequeñas */
+ @media (max-width: 576px) {
+   .card {
+     padding: 12px;
+     max-width: 100%;
+   }
+ 
+   .form-control {
+     font-size: 0.9rem;
+     padding: 0.65rem;
+   }
+ 
+   label {
+     font-size: 0.9rem;
+   }
+ 
+   .alert-danger p {
+     font-size: 0.8rem;
+   }
+ }
+ 
+ /* Adaptabilidad a pantallas medianas */
+ @media (min-width: 577px) and (max-width: 768px) {
+   .card {
+     padding: 14px;
+   }
+ 
+   .form-control {
+     font-size: 1rem;
+     padding: 0.75rem;
+   }
+ 
+   label {
+     font-size: 1rem;
+   }
+ 
+   .alert-danger p {
+     font-size: 0.875rem;
+   }
+ }
+ 
+ /* Adaptabilidad a pantallas grandes */
+ @media (min-width: 769px) {
+   .card {
+     padding: 16px;
+   }
+ 
+   .form-control {
+     font-size: 1rem;
+     padding: 0.75rem;
+   }
+ 
+   label {
+     font-size: 1rem;
+   }
+ 
+   .alert-danger p {
+     font-size: 0.875rem;
+   }
+ }
+ 
 
    

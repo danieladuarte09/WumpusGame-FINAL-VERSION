@@ -23,27 +23,65 @@ table {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  padding: 20px;
+ 
   box-sizing: border-box;
   max-width: none;
-  height: 120vh; //Altura de la ventana
- 
+  height: 100vh; /* Altura de la ventana */
+  overflow: hidden; /* Evita el scroll */
+  
+}
 
+
+
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ajusta el espacio entre los elementos */
+  gap: 10px; /* Espacio entre los elementos, ajustable según prefieras */
 }
 
 .small-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.alert {
+  margin: 0; /* Elimina márgenes para alineación precisa */
+}
+
+.arrow-information {
+  margin: 0; /* Elimina márgenes para alineación precisa */
 }
 
 .table-container {
-  width: 100%;
-  max-width: 680px;
-  height: 100%;
-  max-height: 680px;
+  width: calc(100vw - 40px);  /* Resta un margen si es necesario */
+  height: auto;//calc(100vh - 40px); /* Resta un margen si es necesario */
+  max-width: 680px;  /* Máximo ancho */
+  max-height: 680px; /* Máxima altura */
+  overflow: auto;  /* Evita que el contenido desborde */
+  display: flex;
+  align-items: center;   /* Centra el contenido verticalmente */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  box-sizing: border-box;  /* Incluye padding y borde en el tamaño */
 }
+
+table {
+  width: 100%;
+  min-width: 370px; /* Evita que la tabla se comprima demasiado en pantallas pequeñas */
+  overflow: hidden;
+  //margin-top: 5px;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+table td {
+  width: 50px;
+  height: 50px;
+}
+
 
 .img-cell-player,
 .img-cell {
@@ -54,6 +92,8 @@ table {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 100%; /* Ajusta las imágenes al tamaño de las celdas */
+  max-height: 100%;
 }
 
 .img-cell-player img{
@@ -79,6 +119,75 @@ table td {
   height: 60px;
 }
 
+.btn-custom-primary {
+  margin: 0px;
+  color: #fff;
+  background-color: #4B1900;
+  border-color: #B43910;
+  padding: 2px 2px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom-primary:hover {
+  background-color: #5E35B1;
+  border-color: #5E35B1;
+}
+
+.arrow-information {
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 0px;
+  padding: 10px;
+  text-align: center;
+}
+
+.alert {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+
+
+/* Media Queries para diferentes tamaños de pantalla */
+@media (max-width: 1200px) {
+  table {
+    max-width: 680px;
+  }
+  table td {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+ 
+  table td {
+    width: 40px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  table td {
+    width: 30px;
+    //height: 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  table td {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Botones y otros estilos */
 .btn-custom-primary {
   margin-top: 10px;
   color: #fff;
@@ -109,6 +218,3 @@ table td {
   margin-bottom: 20px;
 }
 
-p {
-  margin: 0;
-}

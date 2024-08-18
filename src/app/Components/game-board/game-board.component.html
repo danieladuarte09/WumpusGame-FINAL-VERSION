@@ -1,16 +1,20 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-  <div class="small-container">
-    <button type="button" (click)="resetGame()" class="btn btn-custom-primary">Reset Game</button>
-    <div class="arrow-information">
-      <p><b>Arrows: {{arrowCount}} {{arrowInformation}}</b></p>
-    </div>
-  </div>
 
-  <div class="table-container">
+  <!-- Contenedor de reinicio e información-->
+  <div class="flex-container">
     <div *ngIf="showMessageGold" class="alert alert-warning" role="alert">
       You found the gold, now go back to the exit!
     </div>
+    <div class="small-container">
+      <button type="button" (click)="resetGame()" class="btn btn-custom-primary">Reset Game</button>
+      <p class="arrow-information"><b>Arrows: {{arrowCount}} {{arrowInformation}}</b></p>
+    </div>
+  </div>
+  
+<!--Tablero de juego-->
+
+  <div class="table-container">
 
     <table class="table" (keydown)="onKeyDown($event)" tabindex="0">
       <tr *ngFor="let row of matriz; let rowIndex = index">
@@ -21,13 +25,14 @@
           <div class="img-cell" *ngIf="cell.gold"></div>
           <div class="img-cell" *ngIf="cell.wumpus"></div>
           <div class="img-cell" *ngIf="cell.pit"></div>
-          <div class="img-cell" *ngIf="cell.brightness && cell.player">
+          
+          <div class="img-cell" *ngIf="cell.brightness">
             <img src="/assets/brightness.png">
           </div>
-          <div class="img-cell" *ngIf="cell.breeze && cell.player">
+          <div class="img-cell" *ngIf="cell.breeze">
             <img src="/assets/breeze2.png">
           </div>
-          <div class="img-cell" *ngIf="cell.stench && cell.player && !cell.wumpusEliminated">
+          <div class="img-cell" *ngIf="cell.stench  && !cell.wumpusEliminated">
             <img src="/assets/stench2.png">
           </div>
         </td>

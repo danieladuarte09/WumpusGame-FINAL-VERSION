@@ -56,34 +56,32 @@ export class FormPageComponent {
       {
         boardSize: new FormControl('', [
           Validators.required,
-          Validators.minLength(1),
-          Validators.pattern(/^[0-9]*$/),
-          Validators.max(10),
           Validators.min(4),
+          Validators.max(10),
+          Validators.pattern(/^[0-9]*$/)
         ]),
         numberOfPits: new FormControl('', [
           Validators.required,
-          Validators.pattern(/^[a-zA-Z0-9_]*$/),
           Validators.min(3),
-          Validators.max(16),
+          Validators.max(10), 
+          Validators.pattern(/^[0-9]*$/)
         ]),
       },
-      [this.validatePits]
+      { validators: this.validatePits }
     );
   }
 
-  private validatePits: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
+  private validatePits: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const boardSize = control.get('boardSize')?.value;
     const numberOfPits = control.get('numberOfPits')?.value;
 
-    if (numberOfPits > boardSize * 2 * 0.8) {
-      return { pitsError: 'Holes may not exceed 80% of the grid size.' };
+    if (boardSize && numberOfPits && numberOfPits > boardSize * 0.8) {
+      return { pitsError: 'Choose a number of pits that is less than 80% of the grid size.' };
     }
 
     return null;
   };
+
 
   //actualizamos la información almacenada en el servicio
   public onPlayClick() {
